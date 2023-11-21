@@ -22,7 +22,7 @@ jobs:
         id: find-linked-issues
         uses: Ismoh-Games/find-linked-issues@v0.0.10
         with:
-          token: ${{ secrets.WORKFLOW_PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
           pull-request-number: ${{ github.event.pull_request.number }}
           pull-request-body: ${{ github.event.pull_request.body }}
@@ -37,7 +37,7 @@ jobs:
       
       - name: Linked issue found?
         run: |
-          commentListResponse=`curl -u Ismoh:${{ secrets.WORKFLOW_PAT }} -H 'Accept: application/vnd.github+json' https://api.github.com/repos/Ismoh/NoitaMP/issues/${{github.event.number}}/comments`
+          commentListResponse=`curl -u Ismoh:${{ secrets.GITHUB_TOKEN }} -H 'Accept: application/vnd.github+json' https://api.github.com/repos/Ismoh/NoitaMP/issues/${{github.event.number}}/comments`
           echo "commentListResponse="$commentListResponse
           # https://jqplay.org/s/WsuVZ8f-YiB
           commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("pull request is not linked to any issue")) | .id')
@@ -46,7 +46,7 @@ jobs:
           for commentId in $commentIds
           do
             echo "commentId="$commentId
-            statusCode=`curl -u Ismoh:${{ secrets.WORKFLOW_PAT }} -X DELETE -H 'Accept: application/vnd.github+json' https://api.github.com/repos/Ismoh/NoitaMP/issues/comments/$commentId`
+            statusCode=`curl -u Ismoh:${{ secrets.GITHUB_TOKEN }} -X DELETE -H 'Accept: application/vnd.github+json' https://api.github.com/repos/Ismoh/NoitaMP/issues/comments/$commentId`
             echo "statusCode="$statusCode
             if [[ $statusCode != "" ]]
             then
@@ -199,7 +199,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           dateFormat: "%d.%m.%Y"
-          output: "CHANGELOG.md"
+          output: "docs/CHANGELOG.md"
           issueLineLabels: "ALL"
           breakingLabels: "backwards-incompatible,breaking,rework,refactor"
           futureRelease: ${{ env.FUTURE_RELEASE }}
@@ -250,7 +250,7 @@ jobs:
             git pull origin ${{ github.base_ref }}
             git config --local user.email "action@github.com"
             git config --local user.name "github-actions"
-            git add CHANGELOG.md
+            git add docs/CHANGELOG.md
             git commit -m "Updated CHANGELOG.md in https://github.com/${{github.repository}}/pull/${{github.event.number}}"
             git push origin ${{ github.base_ref }}
           else
