@@ -13,22 +13,21 @@ jobs:
       - name: Setup GitHub
         run: |
           echo "$GITHUB_CONTEXT"
+          # https://api.github.com/users/github-actions%5Bbot%5D
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
 
       - name: 'Generate lua docs with lua-language-server'
-        shell: cmd
         run: |
           ${{ github.workspace }}\\.building\\lua-language-server-3.6.18-win32-x64\\bin\\lua-language-server.exe --logpath \"${{ github.workspace }}\\docs\\lua-docs\" --configpath \"${{ github.workspace }}\\docs\\lua-docs\\lua-language-server-config.lua\" --doc \"${{ github.workspace }}\\mods\\noita-mp\\files\\scripts\"
           cd ${{ github.workspace }}\\docs\\lua-docs\\ 
           DEL /f *.log
-          # https://api.github.com/users/github-actions%5Bbot%5D
           git add .
           git commit -m "Generate lua docs"
       
-      - name: 'Fix wrong paths in lua docs'
+      - name: 'Format lua docs'
         shell: pwsh
         run: |
           $env:Path += ";C:\Program Files\Git\usr\bin"
