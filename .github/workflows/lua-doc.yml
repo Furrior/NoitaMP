@@ -15,15 +15,16 @@ jobs:
           # https://api.github.com/users/github-actions%5Bbot%5D
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          set -e # To dont format the docs if their generation failed
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
 
       - name: 'Generate lua docs with lua-language-server'
         run: |
-          # Debug  
-          uahsfuhsdfluih
-          ${{ github.workspace }}\\.building\\lua-language-server-3.6.18-win32-x64\\bin\\lua-language-server.exe --logpath \"${{ github.workspace }}\\docs\\lua-docs\" --configpath \"${{ github.workspace }}\\docs\\lua-docs\\lua-language-server-config.lua\" --doc \"${{ github.workspace }}\\mods\\noita-mp\\files\\scripts\"
+          ${{ github.workspace }}\\.building\\lua-language-server-3.6.18-win32-x64\\bin\\lua-language-server.exe \
+            --logpath \"${{ github.workspace }}\\docs\\lua-docs\" \
+            --configpath \"${{ github.workspace }}\\docs\\lua-docs\\lua-language-server-config.lua\" \
+            --doc \"${{ github.workspace }}\\mods\\noita-mp\\files\\scripts\" \
+            || exit 1
           cd ${{ github.workspace }}\\docs\\lua-docs\\ 
           DEL /f *.log
           git add .
