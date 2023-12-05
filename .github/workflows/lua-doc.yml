@@ -9,7 +9,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3.3.0
-
       - name: Setup GitHub
         run: |
           echo "$GITHUB_CONTEXT"
@@ -46,6 +45,5 @@ jobs:
           git commit -m "Format lua docs"
 
       - name: 'Push changes'
-        shell: cmd
         run: git push origin
     
