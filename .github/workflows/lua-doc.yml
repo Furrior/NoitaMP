@@ -24,7 +24,7 @@ jobs:
           ${{ github.workspace }}\\.building\\lua-language-server-3.6.18-win32-x64\\bin\\lua-language-server.exe ^
             --logpath \"${{ github.workspace }}\\docs\\lua-docs\" ^
             --configpath \"${{ github.workspace }}\\docs\\lua-docs\\lua-language-server-config.lua\" ^
-            --doc \"${{ github.workspace }}\\mods\\noita-mp\\files\\scripts\" ^
+            --doc \"${{ github.workspace }}\\mods\\noita-mp\\files\\scripts\" 
           cd ${{ github.workspace }}\\docs\\lua-docs\\ 
           del /d *.log
           git add .
