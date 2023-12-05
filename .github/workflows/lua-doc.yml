@@ -31,7 +31,6 @@ jobs:
           git commit -m "Generate lua docs"
       
       - name: 'Format lua docs'
-        shell: pwsh
         run: |
           $env:Path += ";C:\Program Files\Git\usr\bin"
           Get-Command sed
