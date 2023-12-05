@@ -20,10 +20,10 @@ jobs:
 
       - name: 'Generate lua docs with lua-language-server'
         run: |
-          ${{ github.workspace }}\\.building\\lua-language-server-3.6.18-win32-x64\\bin\\lua-language-server.exe \
-            --logpath \"${{ github.workspace }}\\docs\\lua-docs\" \
-            --configpath \"${{ github.workspace }}\\docs\\lua-docs\\lua-language-server-config.lua\" \
-            --doc \"${{ github.workspace }}\\mods\\noita-mp\\files\\scripts\" \
+          ${{ github.workspace }}\\.building\\lua-language-server-3.6.18-win32-x64\\bin\\lua-language-server.exe `
+            --logpath \"${{ github.workspace }}\\docs\\lua-docs\" `
+            --configpath \"${{ github.workspace }}\\docs\\lua-docs\\lua-language-server-config.lua\" `
+            --doc \"${{ github.workspace }}\\mods\\noita-mp\\files\\scripts\" `
             || exit 1
           cd ${{ github.workspace }}\\docs\\lua-docs\\ 
           DEL /f *.log
