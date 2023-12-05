@@ -26,9 +26,7 @@ jobs:
             --configpath \"${{ github.workspace }}\\docs\\lua-docs\\lua-language-server-config.lua\" ^
             --doc \"${{ github.workspace }}\\mods\\noita-mp\\files\\scripts\" 
           cd ${{ github.workspace }}\\docs\\lua-docs\\ 
-          del /d *.log
-          git add .
-          git commit -m "Generate lua docs"
+          del /D *.log
       
       - name: 'Format lua docs'
         run: |
@@ -41,10 +39,11 @@ jobs:
           echo "Adding #L's"
           sed -i 's/.lua#/.lua#L/g' ${{ github.workspace }}\\docs\\lua-docs\\doc.md
           echo "Replacing headers in .md"
-          sed -i 's#\# #\#\# #g' ${{ github.workspace }}\\docs\\lua-docs\\doc.md
-          git add .
-          git commit -m "Format lua docs"
+          sed -i 's#\# #\#\# #g' ${{ github.workspace }}\\docs\\lua-docs\\doc.md 
 
-      - name: 'Push changes'
-        run: git push origin
+      - name: 'Commit and push changes'
+        run: |
+          git add .
+          git commit -m "Generate lua docs"
+          git push origin
     
