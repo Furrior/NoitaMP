@@ -15,6 +15,7 @@ jobs:
           # https://api.github.com/users/github-actions%5Bbot%5D
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          $ErrorActionPreference = "Stop"
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
 
@@ -24,7 +25,6 @@ jobs:
             --logpath \"${{ github.workspace }}\\docs\\lua-docs\" `
             --configpath \"${{ github.workspace }}\\docs\\lua-docs\\lua-language-server-config.lua\" `
             --doc \"${{ github.workspace }}\\mods\\noita-mp\\files\\scripts\" `
-            || exit 1
           cd ${{ github.workspace }}\\docs\\lua-docs\\ 
           DEL /f *.log
           git add .
