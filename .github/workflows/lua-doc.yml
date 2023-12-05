@@ -21,6 +21,7 @@ jobs:
 
       - name: 'Generate lua docs with lua-language-server'
         run: |
+          das.exe dasiudhias
           ${{ github.workspace }}\\.building\\lua-language-server-3.6.18-win32-x64\\bin\\lua-language-server.exe `
             --logpath \"${{ github.workspace }}\\docs\\lua-docs\" `
             --configpath \"${{ github.workspace }}\\docs\\lua-docs\\lua-language-server-config.lua\" `
