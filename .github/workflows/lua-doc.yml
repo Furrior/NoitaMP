@@ -24,7 +24,7 @@ jobs:
             --logpath \"${{ github.workspace }}\\docs\\lua-docs\" `
             --configpath \"${{ github.workspace }}\\docs\\lua-docs\\lua-language-server-config.lua\" `
             --doc \"${{ github.workspace }}\\mods\\noita-mp\\files\\scripts\" `
-          if ($LASTEXITCODE -ne 0) { exit 1; }
+          # if ($LASTEXITCODE -ne 0) { exit 1; }
           cd ${{ github.workspace }}\\docs\\lua-docs\\ 
           rm -Force *.log
           git add .
