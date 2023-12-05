@@ -34,16 +34,13 @@ jobs:
           $env:Path += ";C:\Program Files\Git\usr\bin"
           Get-Command sed
           cd ${{ github.workspace }}\\docs\\lua-docs\\
-          # Debug
-          Get-Content ${{ github.workspace }}\\docs\\lua-docs\\doc.md -TotalCount 30
-          sed -i 's#file:///d%3A/a/NoitaMP/NoitaMP/#${{ github.server_url }}/${{ github.repository }}#g' ${{ github.workspace }}\\docs\\lua-docs\\doc.md
-          # Debug
-          Get-Content ${{ github.workspace }}\\docs\\lua-docs\\doc.md -TotalCount 30          
+          echo "Recplacing filepaths"
+          #sed -i 's#file:///d%3A/a/NoitaMP/NoitaMP/#${{ github.server_url }}/${{ github.repository }}#g' ${{ github.workspace }}\\docs\\lua-docs\\doc.md
+          sed -i 's#file:///d%3A/a/NoitaMP/NoitaMP/#${{ github.server_url }}/${{ github.repository }}#g' ${{ github.workspace }}\\docs\\lua-docs\\doc.json         
+          echo "Adding #L's"
           sed -i 's/.lua#/.lua#L/g' ${{ github.workspace }}\\docs\\lua-docs\\doc.md
+          echo "Replacing headers in .md"
           sed -i 's#\# #\#\# #g' ${{ github.workspace }}\\docs\\lua-docs\\doc.md
-          # Debug
-          Get-Content ${{ github.workspace }}\\docs\\lua-docs\\doc.md -TotalCount 30
-          sed -i 's#file:///d%3A/a/NoitaMP/NoitaMP/#${{ github.server_url }}/${{ github.repository }}#g' ${{ github.workspace }}\\docs\\lua-docs\\doc.json
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .
